@@ -32,7 +32,7 @@ const Header = () => {
                 colorScheme="green"
                 variant="solid"
                 onClick={() => {
-                  router.push("overview");
+                  router.push("app");
                 }}
               >
                 Enter App
@@ -47,7 +47,7 @@ const Header = () => {
                   provider.enable().then(() => router.push(router.route));
                 }}
               >
-                Connnect Wallet
+                Connect Wallet
               </Button>
             ) : (
               <Button
