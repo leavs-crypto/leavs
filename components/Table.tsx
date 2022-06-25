@@ -14,9 +14,9 @@ import {
 const TableComponent = () => {
 
   return (
-    <Grid templateColumns='repeat(8, 1fr)' gap={4} h="1vh" >
-      <GridItem colSpan={2}/>
-      <GridItem colSpan={5}>
+    <Grid templateColumns='repeat(12, 1fr)' gap={4} h="1vh" >
+      <GridItem colSpan={1} />
+      <GridItem colSpan={10}>
         <TableContainer>
           <Table variant='simple'>
             <Thead>
@@ -42,7 +42,7 @@ const TableComponent = () => {
           </Table>
         </TableContainer>
       </GridItem>
-      <GridItem colSpan={1}/>
+      <GridItem colSpan={1} />
     </Grid>
 
   )

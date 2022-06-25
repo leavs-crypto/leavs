@@ -5,12 +5,10 @@ import Table from "../components/Table";
 
 const Borrow: NextPage = () => {
     return (
-        <>
-        <Drawer />
-
-        <Box textAlign="center">Active loans page</Box>
-        <Table />
-    </>
+        <Drawer parent="profile">
+            <Box textAlign="center">Active loans page</Box>
+            <Table />
+        </Drawer>
     );
 };
 

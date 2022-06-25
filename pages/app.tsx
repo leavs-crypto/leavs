@@ -6,11 +6,13 @@ import {
     Grid,
     GridItem
 } from "@chakra-ui/react";
+import Drawer from "../components/Drawer";
+
 const App: NextPage = () => {
     return (
-        <>
+        <Drawer>
             app page
-        </>
+        </Drawer>
     )
 }
 
