@@ -32,7 +32,7 @@ const Logo = () => {
             font-size="80"
             font-weight="800"
             letter-spacing="0.533333333"
-            fill="#FFFFFF"
+            fill="#000000"
           >
             <tspan x="0" y="76">
               Leavs
