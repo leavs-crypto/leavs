@@ -20,17 +20,14 @@ contract Loan is TradeableCashflow {
         worldCoinID=_worldCoinID;
     }
 
-    function requestLoan(uint32 loanId){
-        require(_owners[loanId] == address(0), 'Loan with loan id already exists')
-        _mint(msg.sender, loanId);
+    //function requestLoan(uint32 loanId){
+    //    require(_owners[loanId] == address(0), 'Loan with loan id already exists')
+    //    _mint(msg.sender, loanId);
+    //}
 
 
-        // isApprovedForAll(address owner, address operator) maybe allow 
-    }
-
-
-    function grantLoan(uint32 loanId) {
-        address borrower = _owners[loanId];
+    function grantLoan() {
+        address borrower = _owners[1]; // as we only have 1 NFT per contract 
 
         // transfer funds to the borrower 
         address(borrower).call{value:loanAmount}("");
