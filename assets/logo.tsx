@@ -3,12 +3,11 @@ import React from "react";
 const Logo = () => {
   return (
     <svg
-      width="235px"
-      height="58px"
+      width="118px"
+      height="29px"
       viewBox="0 0 235 58"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
     >
       <title>Leavs</title>
       <desc>Created with Sketch.</desc>
@@ -33,7 +32,7 @@ const Logo = () => {
             font-size="80"
             font-weight="800"
             letter-spacing="0.533333333"
-            fill="#000000"
+            fill="#FFFFFF"
           >
             <tspan x="0" y="76">
               Leavs

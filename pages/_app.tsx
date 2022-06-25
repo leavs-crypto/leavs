@@ -1,13 +1,16 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import { WithWalletConnect } from "../components/WithWalletConnect";
+import Layout from "../components/Layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <WithWalletConnect>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </WithWalletConnect>
     </ChakraProvider>
   );

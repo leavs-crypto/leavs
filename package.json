@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "1.8.8",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@maticnetwork/maticjs": "3.2.5",
     "@maticnetwork/maticjs-web3": "1.0.1",
     "@openzeppelin/contracts": "4.5.0",

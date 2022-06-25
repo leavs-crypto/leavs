@@ -1,4 +1,4 @@
-import { Box, Button, Link } from "@chakra-ui/react";
+import { Box, Button, Link, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import Logo from "../assets/logo";
@@ -9,6 +9,7 @@ const Header = () => {
   const router = useRouter();
   const { connected, accounts } = useContext(AuthContext);
   console.log("router", router.route);
+  const { toggleColorMode } = useColorMode();
   return (
     <>
       <Box
@@ -29,8 +30,10 @@ const Header = () => {
               <Button
                 fontSize="14px"
                 lineHeight="17px"
-                variant="ghost"
+                colorScheme="green"
+                variant="solid"
                 onClick={() => {
+                  //toggleColorMode();
                   router.push("overview");
                 }}
               >
@@ -40,7 +43,8 @@ const Header = () => {
               <Button
                 fontSize="14px"
                 lineHeight="17px"
-                variant="ghost"
+                colorScheme="green"
+                variant="solid"
                 onClick={() => {
                   router.push("overview");
                 }}
@@ -51,7 +55,8 @@ const Header = () => {
               <Button
                 fontSize="14px"
                 lineHeight="17px"
-                variant="ghost"
+                colorScheme="green"
+                variant="solid"
                 onClick={() => {
                   router.push("overview");
                 }}
