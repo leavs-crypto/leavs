@@ -1,9 +1,11 @@
-import { Button } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
 import worldID from "@worldcoin/id";
 import { useContext, useLayoutEffect } from "react";
 import { AuthContext } from "./WithWalletConnect";
-const WorldCoinButton = () => {
+const WorldCoinButton = ({
+  onAuth,
+}: {
+  onAuth: (nullifier_hash: string) => void;
+}) => {
   const provider = useContext(AuthContext);
   useLayoutEffect(() => {
     if (!worldID.isInitialized()) {
@@ -21,7 +23,9 @@ const WorldCoinButton = () => {
   }, []);
   async function enable() {
     const result = await worldID.enable();
-    console.log("result");
+    console.log("result", result);
+    onAuth(result.nullifier_hash);
+    return;
   }
   return (
     <div>
