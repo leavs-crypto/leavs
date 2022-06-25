@@ -1,22 +1,27 @@
 import { Button } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-//@ts-ignore
 import worldID from "@worldcoin/id";
-import { useLayoutEffect } from "react";
-console.log("window", typeof window);
+import { useContext, useLayoutEffect } from "react";
+import { AuthContext } from "./WithWalletConnect";
 const WorldCoinButton = () => {
+  const provider = useContext(AuthContext);
   useLayoutEffect(() => {
     if (!worldID.isInitialized()) {
+      if (!provider.accounts[0]) {
+        throw ReferenceError("User has to have wallet connected");
+      }
       worldID.init("world-id-container", {
         enable_telemetry: true,
-        action_id: "wid_BPZsRJANxct2cZxVRyh80SFG",
-        signal: "hi",
+        action_id: "AssociateWalletAddress",
+        signal: provider.accounts[0],
+        signal_description: "Connect wallet",
       });
       enable();
     }
   }, []);
   async function enable() {
     const result = await worldID.enable();
+    console.log("result");
   }
   return (
     <div>
