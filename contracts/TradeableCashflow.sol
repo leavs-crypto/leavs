@@ -20,7 +20,6 @@ contract TradeableCashflow is ERC721, RedirectAll {
       owner
      )
       {
-
       _mint(owner, 1);
   }
 
