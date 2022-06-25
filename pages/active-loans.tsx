@@ -5,7 +5,7 @@ import Table from "../components/Table";
 
 const Borrow: NextPage = () => {
     return (
-        <Drawer parent="profile">
+        <Drawer parent="active-loans">
             <Box textAlign="center">Active loans page</Box>
             <Table />
         </Drawer>
