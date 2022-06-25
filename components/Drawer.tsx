@@ -1,18 +1,20 @@
-import {
-    Button,
-    Grid,
-    GridItem,
-    Link,
-    LinkBox
-} from '@chakra-ui/react';
-import React from 'react';
+import { Button, Grid, GridItem, Link, LinkBox } from "@chakra-ui/react";
+import React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Logo from "../assets/logo";
 
-const DrawerComponent = ({ parent, children }: { parent: string, children: ReactNode }) => {
-    const router = useRouter();
-    const [pathname] = useState(typeof window !== "undefined" && window.location.pathname);
+const DrawerComponent = ({
+  parent,
+  children,
+}: {
+  parent: string;
+  children: ReactNode;
+}) => {
+  const router = useRouter();
+  const [pathname] = useState(
+    typeof window !== "undefined" && window.location.pathname
+  );
 
     return (
         <Grid templateColumns='repeat(12, 1fr)' gap={4} h="100vh">

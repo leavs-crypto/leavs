@@ -36,6 +36,7 @@ yarn-error.log*
 
 node_modules
 package-lock
+yarn.lock
 .env
 coverage
 coverage.json

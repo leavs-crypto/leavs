@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import { HardhatUserConfig } from "hardhat/config";
 import "@typechain/hardhat";
-import "@nomiclabs/hardhat-ethers"
+import "@nomiclabs/hardhat-ethers";
 
 dotenv.config();
 
@@ -9,10 +9,10 @@ dotenv.config();
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
+  solidity: "0.8.13",
   typechain: {
     outDir: "artifacts/contracts/types",
-    target: "ethers-v5"
+    target: "ethers-v5",
   },
   networks: {
     ropsten: {
@@ -20,7 +20,7 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-  }
+  },
 };
 
 export default config;
