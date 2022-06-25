@@ -37,10 +37,10 @@ const DrawerComponent = () => {
                         </LinkBox>
                         <LinkBox padding="16px 8px">
                             <Link
-                                fontWeight={pathname === "/active-loans" ? "bold" : "400"}
-                                onClick={() => router.push("/active-loans")}
+                                fontWeight={pathname === "/profile" ? "bold" : "400"}
+                                onClick={() => router.push("/profile")}
                             >
-                                Active loans
+                                My profile
                             </Link>
                         </LinkBox>
                     </DrawerBody>
