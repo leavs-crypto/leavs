@@ -14,9 +14,9 @@ const Logo = () => {
       <g
         id="Logo"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g id="Leavs" transform="translate(-4.000000, -20.000000)">
           <rect
@@ -28,11 +28,11 @@ const Logo = () => {
             height="15"
           ></rect>
           <text
-            font-family="Urbanist-Black, Urbanist"
-            font-size="80"
-            font-weight="800"
-            letter-spacing="0.533333333"
-            fill="#000000"
+            fontFamily="Urbanist-Black, Urbanist"
+            fontSize="80"
+            fontWeight="800"
+            letterSpacing="0.533333333"
+            fill="#000"
           >
             <tspan x="0" y="76">
               Leavs
