@@ -10,6 +10,7 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import { Field, Form, Formik } from "formik";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -22,50 +23,35 @@ const DynamicWorldCoinButton = dynamic(
     ssr: false,
   }
 );
-import { postIPFS, callSmartContractFunction } from "../util/tatum";
-
-const addUser_ABI = {
-  "inputs": [
-    {
-      "internalType": "string",
-      "name": "_wid",
-      "type": "string"
-    },
-    {
-      "internalType": "address",
-      "name": "_walletAddress",
-      "type": "address"
-    },
-    {
-      "internalType": "string",
-      "name": "_cid",
-      "type": "string"
-    }
-  ],
-  "name": "addUser",
-  "outputs": [],
-  "stateMutability": "nonpayable",
-  "type": "function"
-}
+import { postIPFS } from "../util/tatum";
+import { addUser } from "../util/user";
 
 const formatHumanData = (data: object) => {
-  const { worldCoinID, walletAddress, age, location, creditScore, monthlyIncome, monthlyDebt } = data;
+  const {
+    worldCoinID,
+    walletAddress,
+    age,
+    location,
+    creditScore,
+    monthlyIncome,
+    monthlyDebt,
+  } = data;
   return {
     worldcoin_nullifier: worldCoinID,
     walletAddress,
     KYC: {
       age,
-      location
+      location,
     },
     creditScore,
     monthlyIncome,
-    monthlyDebt
-  }
-}
+    monthlyDebt,
+  };
+};
 
 // TODO: -> fix styles of this form with flex wrap
 const BorrowerProfile: NextPage = () => {
-  const [formState, setFormState] = useState('notSubmitted');
+  const [formState, setFormState] = useState("notSubmitted");
   const [worldCoinID, setWorldCoinID] = useState("");
   function trySetWorldCoinID(nullfier_hash: string) {
     setWorldCoinID(nullfier_hash);
@@ -74,17 +60,20 @@ const BorrowerProfile: NextPage = () => {
   const walletAddress = provider.accounts[0];
   return (
     <Drawer parent="borrower-profile">
+      {formState == "submitted" && (
+        <Alert status="success">
+          <AlertIcon />
+          Data uploaded to IPFS. Fire on!
+        </Alert>
+      )}
+      {formState == "error" && (
+        <Alert status="error">
+          <AlertIcon />
+          There was an error processing your request
+        </Alert>
+      )}
 
-      {formState == 'submitted' && <Alert status='success'>
-        <AlertIcon />
-        Data uploaded to IPFS. Fire on!
-      </Alert>}
-      {formState == 'error' && <Alert status='error'>
-        <AlertIcon />
-        There was an error processing your request
-      </Alert>}
-
-      {formState == 'notSubmitted' &&
+      {formState == "notSubmitted" && (
         <Box style={{ padding: 5 }}>
           {provider.connected && (
             <DynamicWorldCoinButton onAuth={trySetWorldCoinID} />
@@ -97,147 +86,151 @@ const BorrowerProfile: NextPage = () => {
               location: "",
               creditScore: null,
               monthlyIncome: null,
-              monthlyDebt: null
+              monthlyDebt: null,
             }}
             onSubmit={async (values, actions) => {
               actions.setSubmitting(false);
               const data = formatHumanData(values);
+              let IpfsHash;
               try {
                 IpfsHash = await postIPFS(data);
               } catch (error) {
-                setFormState('error');
+                setFormState("error");
                 throw Error(error);
               }
               try {
-                await callSmartContractFunction(
-                  provider,
-                  [worldCoinID, walletAddress, IpfsHash]
-                );
-                setFormState('submitted');
+                await addUser(worldCoinID, IpfsHash, provider);
+                setFormState("submitted");
               } catch (error) {
-                setFormState('error');
+                setFormState("error");
                 throw Error(error);
               }
             }}
           >
-            {
-              (props) => (
-                <Form style={{ textAlign: "center", flexDirection: "row", width: 500 }}>
-                  <Field name="firstName">
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>First Name</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder='First Name'
-                          style={{ flex: 1 }}
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+            {(props) => (
+              <Form
+                style={{
+                  textAlign: "center",
+                  flexDirection: "row",
+                  width: 500,
+                }}
+              >
+                <Field name="firstName">
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>First Name</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="First Name"
+                        style={{ flex: 1 }}
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Field
-                    name="lastName"
-                    style={{ flex: 1 }}
-                    disabled={worldCoinID == ""}
-                  >
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Last Name</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder="Last Name"
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                <Field
+                  name="lastName"
+                  style={{ flex: 1 }}
+                  disabled={worldCoinID == ""}
+                >
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>Last Name</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="Last Name"
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Field name="age" disabled={worldCoinID == ""}>
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Age</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder="Age"
-                          type="number"
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                <Field name="age" disabled={worldCoinID == ""}>
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>Age</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="Age"
+                        type="number"
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Field name="location" disabled={worldCoinID == ""}>
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Location</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder="Location"
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                <Field name="location" disabled={worldCoinID == ""}>
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>Location</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="Location"
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Field name="creditScore" disabled={worldCoinID == ""}>
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Credit score</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder="Credit score"
-                          type="number"
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                <Field name="creditScore" disabled={worldCoinID == ""}>
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>Credit score</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="Credit score"
+                        type="number"
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Field name="monthlyIncome" disabled={worldCoinID == ""}>
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Montly income</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder="Montly income"
-                          type="number"
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                <Field name="monthlyIncome" disabled={worldCoinID == ""}>
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>Montly income</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="Montly income"
+                        type="number"
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Field name="monthlyDebt" disabled={worldCoinID == ""}>
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Monthly debt</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder="Monthly debt"
-                          type="number"
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                <Field name="monthlyDebt" disabled={worldCoinID == ""}>
+                  {({ field, form }) => (
+                    <FormControl mt={4}>
+                      <FormLabel>Monthly debt</FormLabel>
+                      <Input
+                        {...field}
+                        placeholder="Monthly debt"
+                        type="number"
+                        disabled={worldCoinID == ""}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
 
-                  <Button
-                    marginTop="16px"
-                    colorScheme="blue"
-                    mr={3}
-                    type="submit"
-                    disabled={worldCoinID == ""}
-                    isLoading={props.isSubmitting}
-                  >
-                    Update my profile
-                  </Button>
-                </Form >
-              )}
-          </Formik >
-        </Box >}
-    </Drawer >
+                <Button
+                  marginTop="16px"
+                  colorScheme="blue"
+                  mr={3}
+                  type="submit"
+                  disabled={worldCoinID == ""}
+                  isLoading={props.isSubmitting}
+                >
+                  Update my profile
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      )}
+    </Drawer>
   );
 };
 

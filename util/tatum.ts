@@ -4,29 +4,9 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "hardhat";
 import { providers } from "ethers";
 import { LEAVS_CONTRACT_ADDRESS, LEAVS_ABI } from "./constants";
-import Web3 from 'web3';
+import Web3 from "web3";
 // Tatum us api key
 const API_KEY = "b3b6c700-aa9a-4de0-811d-057a82c752d1";
-
-export async function callSmartContractFunction(
-  provider: object,
-  contractParams: Array,
-) {
-  const [worldCoinID, walletAddress, IpfsHash] = contractParams;
-  const web3js = new Web3(provider);
-  const leavsContract = new web3js.eth.Contract(LEAVS_ABI, LEAVS_CONTRACT_ADDRESS);
-  try {
-    const response = await leavsContract
-    .methods
-    .addUser(worldCoinID, walletAddress, IpfsHash)
-    .send({ from: walletAddress });
-
-    console.log('response: ', response);
-  } catch (error) {
-    console.log('error', error);
-  }
-
-}
 
 // TODO: interface in param
 export async function postIPFS(data: object) {

@@ -1,8 +1,7 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers, providers } from "ethers";
 import LoanABI from "../artifacts/contracts/Loan.sol/Loan.json";
-import {createFlow, updateFlow, getFlowRate} from "../util/superfluid";
-import {sellNFT} from "../util/opensea";
+import { createFlow, updateFlow, getFlowRate } from "../util/superfluid";
 const LEAVS_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 export async function createLoanContract(
@@ -34,7 +33,6 @@ export async function createLoanContract(
   }
 }
 
-
 export async function requestLoan(
   borrower: string,
   provider: WalletConnectProvider,
@@ -56,8 +54,4 @@ export async function requestLoan(
   // open up the Superfluid stream
   let flowRate = totalLoan / loanTerm / 30 / 24 / 60 / 60;
   await createFlow(borrower, String(flowRate), provider);
-
-  // put up the NFT on OpenSea marketplace
-
-  sellNFT();
 }
