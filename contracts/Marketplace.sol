@@ -4,6 +4,7 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./Loan.sol";
 
 contract Marketplace is ReentrancyGuard {
     using Counters for Counters.Counter;
@@ -65,7 +66,7 @@ contract Marketplace is ReentrancyGuard {
         _marketItemIds.increment();
         uint256 marketItemId = _marketItemIds.current();
 
-        address creator = NFT(nftContractAddress).getTokenCreatorById(tokenId);
+        address creator = address(0);
 
         marketItemIdToMarketItem[marketItemId] = MarketItem(
             marketItemId,
