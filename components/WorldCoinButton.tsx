@@ -7,7 +7,7 @@ const WorldCoinButton = ({
   onAuth: (nullifier_hash: string) => void;
 }) => {
   const provider = useContext(AuthContext);
-  console.log("provider", provider.connected);
+  // console.log("provider", provider.connected);
 
   useEffect(() => {
     if (!worldID.isInitialized()) {
@@ -20,10 +20,8 @@ const WorldCoinButton = ({
         signal: provider.accounts[0],
         signal_description: "Connect wallet",
       });
-      console.log("ffj2");
       enable();
     } else {
-      console.log("ffj");
       enable();
     }
   });
