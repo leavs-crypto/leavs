@@ -11,119 +11,131 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure
+    useDisclosure,
+    Alert,
+    AlertIcon
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { createLoanContract } from "../util/loans";
 import { AuthContext } from "./WithWalletConnect";
-import { useContext, useLayoutEffect } from "react";
-import { Console } from "console";
+import { useState, useContext, useLayoutEffect } from "react";
 
 
-const BorrowModal = ({worldCoinID}) => {
+const BorrowModal = ({ worldCoinID }) => {
     // TODO: frh -> form logic with state
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [loanSubmitted, setLoanSubmitted] = useState(false);
     const provider = useContext(AuthContext);
 
     return (
         <>
-            <Container centerContent margin="32px auto">
-                Borrow peer to peer at the best rates!
-                <Button colorScheme='blue' onClick={onOpen}>Borrow</Button>
-            </Container>
-            <Modal
-                isOpen={isOpen}
-                onClose={onClose}
-            >
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Specify your loan conditions</ModalHeader>
-                    <ModalCloseButton />
-                    <Formik
-                        initialValues={{
-                            loanAmount: null,
-                            loanTerm: null,
-                            APR: null
-                        }}
-                        onSubmit={async (values, actions) => {
-                            console.log('values: ', values);
-                            actions.setSubmitting(false);
+            {loanSubmitted ? (
+                <Alert status="success">
+                    <AlertIcon />
+                    Loan submitted correctly!
+                </Alert>
+            ) : (<>
+                <Container centerContent margin="32px auto">
+                    Borrow peer to peer at the best rates!
+                    <Button colorScheme='blue' onClick={onOpen}>Borrow</Button>
+                </Container>
+                <Modal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                >
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Specify your loan conditions</ModalHeader>
+                        <ModalCloseButton />
+                        <Formik
+                            initialValues={{
+                                loanAmount: null,
+                                loanTerm: null,
+                                APR: null
+                            }}
+                            onSubmit={async (values, actions) => {
+                                console.log('values: ', values);
+                                actions.setSubmitting(false);
+                                setTimeout(onClose(), 400);
+                                setTimeout(setLoanSubmitted(true), 500);
+                                onClose();
 
 
-                            try {
-                                console.log('HIIIIII')
-                                const loan = await createLoanContract(provider, worldCoinID, values.loanAmount, values.loanTerm, values.APR);
-                                console.log('Results:  ', loan)
-                            } catch (error) {
-                                console.log('Error', error)
+                                try {
+                                    const loan = await createLoanContract(provider, worldCoinID, values.loanAmount, values.loanTerm, values.APR);
+                                    console.log('Results:  ', loan);
+                                } catch (error) {
+                                    console.log('Error', error)
 
-                                throw Error(error);
-                            }
-                        }}
-                    >
-                        {(props) => (
-                            <Form>
-                                <ModalBody pb={6}>
+                                    throw Error(error);
+                                }
+                            }}
+                        >
+                            {(props) => (
+                                <Form>
+                                    <ModalBody pb={6}>
 
-                                    <Field name="loanAmount">
-                                        {({ field, form }) => (
-                                            <FormControl>
-                                                <FormLabel>Loan amount</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder='Loan amount'
-                                                    type='number'
-                                                />
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                                        <Field name="loanAmount">
+                                            {({ field, form }) => (
+                                                <FormControl>
+                                                    <FormLabel>Loan amount</FormLabel>
+                                                    <Input
+                                                        {...field}
+                                                        placeholder='Loan amount'
+                                                        type='number'
+                                                    />
+                                                </FormControl>
+                                            )}
+                                        </Field>
 
-                                    <Field name="loanTerm">
-                                        {({ field, form }) => (
-                                            <FormControl mt={4}>
-                                                <FormLabel>Loan term in days</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder='Loan term in days'
-                                                    type='number'
-                                                />
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                                        <Field name="loanTerm">
+                                            {({ field, form }) => (
+                                                <FormControl mt={4}>
+                                                    <FormLabel>Loan term in days</FormLabel>
+                                                    <Input
+                                                        {...field}
+                                                        placeholder='Loan term in days'
+                                                        type='number'
+                                                    />
+                                                </FormControl>
+                                            )}
+                                        </Field>
 
 
-                                    {/* TODO: frh-> show percentage on input */}
-                                    <Field name="APR">
-                                        {({ field, form }) => (
-                                            <FormControl>
-                                                <FormLabel>APR</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder='APR'
-                                                    type='number'
-                                                />
-                                            </FormControl>
-                                        )}
-                                    </Field>
-                                </ModalBody>
+                                        {/* TODO: frh-> show percentage on input */}
+                                        <Field name="APR">
+                                            {({ field, form }) => (
+                                                <FormControl>
+                                                    <FormLabel>APR</FormLabel>
+                                                    <Input
+                                                        {...field}
+                                                        placeholder='APR'
+                                                        type='number'
+                                                    />
+                                                </FormControl>
+                                            )}
+                                        </Field>
+                                    </ModalBody>
 
-                                <ModalFooter>
-                                    <Button
-                                        colorScheme='blue'
-                                        mr={3}
-                                        type="submit"
-                                        isLoading={props.isSubmitting}
-                                    // disabled={loading}
-                                    >
-                                        Save
-                                    </Button>
-                                    <Button onClick={onClose}>Cancel</Button>
-                                </ModalFooter>
-                            </Form>
-                        )}
-                    </Formik>
-                </ModalContent>
-            </Modal>
+                                    <ModalFooter>
+                                        <Button
+                                            colorScheme='blue'
+                                            mr={3}
+                                            type="submit"
+                                            isLoading={props.isSubmitting}
+                                        // disabled={loading}
+                                        >
+                                            Save
+                                        </Button>
+                                        <Button onClick={onClose}>Cancel</Button>
+                                    </ModalFooter>
+                                </Form>
+                            )}
+                        </Formik>
+                    </ModalContent>
+                </Modal>
+            </>
+            )}
         </>
     )
 }
