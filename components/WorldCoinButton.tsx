@@ -6,7 +6,8 @@ const WorldCoinButton = ({
 }: {
   onAuth: (nullifier_hash: string) => void;
 }) => {
-  const { provider } = useContext(AuthContext);
+  const provider = useContext(AuthContext);
+  console.log("provider", provider.connected);
   useLayoutEffect(() => {
     if (!worldID.isInitialized()) {
       if (!provider.accounts[0]) {

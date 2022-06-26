@@ -3,7 +3,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  FormInput,
   Input,
   useCounter,
 } from "@chakra-ui/react";
@@ -24,7 +23,7 @@ import { postIPFS } from "../util/tatum";
 // TODO: -> fix styles of this form with flex wrap
 const BorrowerProfile: NextPage = () => {
   const [worldCoinID, setWorldCoinID] = useState("");
-  const { provider } = useContext(AuthContext);
+  const provider = useContext(AuthContext);
   return (
     <Drawer parent="borrower-profile">
       <Box style={{ padding: 5 }}>

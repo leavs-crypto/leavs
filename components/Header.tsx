@@ -15,11 +15,11 @@ import { AuthContext } from "./WithWalletConnect";
 
 const Header = () => {
   const router = useRouter();
-  const { provider, setProvider } = useContext(AuthContext);
-  provider.onConnect &&
-    provider.onConnect(() => {
-      setProvider(provider);
-    });
+  const provider = useContext(AuthContext);
+  // provider.onConnect &&
+  //   provider.onConnect(() => {
+  //     setProvider(provider);
+  //   });
   return (
     <Grid
       templateColumns="repeat(12, 1fr)"

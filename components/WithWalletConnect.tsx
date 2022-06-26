@@ -10,29 +10,21 @@ import React, {
 } from "react";
 
 export const AuthContext = createContext(
-  {} as {
-    provider: WalletConnectProvider;
-    setProvider: Dispatch<SetStateAction<WalletConnectProvider>>;
-  }
+  {} as WalletConnectProvider
+  // setProvider: Dispatch<SetStateAction<WalletConnectProvider>>;
+  // }
 );
+const provider = new WalletConnectProvider({
+  infuraId: "d62fb642f5ad46ec98639ad9d23de080",
+});
 export const WithWalletConnect = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [provider, setProvider] = useState({} as WalletConnectProvider);
-  useEffect(
-    () =>
-      setProvider(
-        new WalletConnectProvider({
-          infuraId: "d62fb642f5ad46ec98639ad9d23de080",
-        })
-      ),
-    []
-  );
+  // const [provider, setProvider] = useState({} as WalletConnectProvider);
+  // useEffect(() => setProvider(), []);
   return (
-    <AuthContext.Provider value={{ provider, setProvider }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={provider}>{children}</AuthContext.Provider>
   );
 };
