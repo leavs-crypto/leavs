@@ -17,6 +17,8 @@ export const AuthContext = createContext(
 const provider = new WalletConnectProvider({
   infuraId: "d62fb642f5ad46ec98639ad9d23de080",
 });
+
+
 export const WithWalletConnect = ({
   children,
 }: {

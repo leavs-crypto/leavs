@@ -3,6 +3,7 @@ import { ethers, providers } from "ethers";
 import LoanABI from "../artifacts/contracts/Loan.sol/Loan.json";
 
 import {createFlow, updateFlow, getFlowRate} from "../util/superfluid";
+import {sellNFT} from "../util/opensea";
 
 
 
@@ -46,10 +47,11 @@ export async function requestLoan(
 
     // open up the Superfluid stream
     let flowRate= totalLoan/loanTerm/30/24/60/60
-    //await createFlow(borrower, String(flowRate), provider)
+    await createFlow(borrower, String(flowRate), provider)
     
 
     // put up the NFT on OpenSea marketplace
 
+    sellNFT()
   }
   

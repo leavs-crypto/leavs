@@ -10,7 +10,7 @@ const provider = useContext(AuthContext);
 
 const openseaSDK = new OpenSeaSDK(provider, {
     networkName: Network.Main,
-    apiKey: 'YOUR_API_KEY'
+    // apiKey: 'YOUR_API_KEY' not needed for the testnet
   })
 
   export const sellNFT = async (ownerAddress: string, tokenAaddress: string, tokenId: number, days: number, amount: number) => {
