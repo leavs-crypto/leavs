@@ -44,14 +44,6 @@ const DrawerComponent = ({
                         Active loans
                     </Link>
                 </LinkBox>
-                <LinkBox padding="16px 0px">
-                    <Link
-                        fontWeight={parent === "borrower-profile" ? "bold" : "400"}
-                        onClick={() => router.push("/borrower-profile")}
-                    >
-                        Update borrower profile
-                    </Link>
-                </LinkBox>
             </GridItem>
             <GridItem colSpan={9}>{children}</GridItem>
         </Grid>

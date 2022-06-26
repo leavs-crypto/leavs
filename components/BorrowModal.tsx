@@ -26,8 +26,9 @@ const BorrowModal = () => {
 
     return (
         <>
-            <Container centerContent>
-                <Button onClick={onOpen}>Borrow</Button>
+            <Container centerContent margin="32px auto">
+                Borrow peer to peer at the best rates!
+                <Button colorScheme='blue' onClick={onOpen}>Borrow</Button>
             </Container>
             <Modal
                 isOpen={isOpen}
@@ -46,12 +47,12 @@ const BorrowModal = () => {
                         onSubmit={async (values, actions) => {
                             console.log('values: ', values);
                             actions.setSubmitting(false);
-                            
+
 
                             try {
                                 const loan = await createLoanContract(provider, 'This should be world coin id', values.loanAmount, values.loanTerm, values.APR);
                                 console.log('HIIIIII')
-                                console.log('Results:  ',loan)
+                                console.log('Results:  ', loan)
                             } catch (error) {
                                 console.log('Error')
 
