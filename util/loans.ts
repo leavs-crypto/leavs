@@ -86,6 +86,18 @@ export async function requestLoan(
     }
   }
 
+  export async function getOpenLoans(
+    provider: WalletConnectProvider,  
+  ) {
+    try {
+      const ethersProvider = new providers.Web3Provider(provider);
+      console.log(getItems(provider))
+      return getItems(provider) 
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
 
 
 
