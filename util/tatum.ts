@@ -3,7 +3,6 @@ import axios from "axios";
 // Tatum us api key
 const API_KEY = "b3b6c700-aa9a-4de0-811d-057a82c752d1";
 
-
 export async function callSmartContractFunction( //would also call withdraw function from smart contract etc
   methodName: string,
   methodABI: object,
@@ -19,7 +18,7 @@ export async function callSmartContractFunction( //would also call withdraw func
     amount: amount,
     fromPrivateKey: privateKey,
   };
-  const url = `https://api-us-west1.tatum.io/v3/polygon/smartcontract`;
+  const url = `https://api-us-west1.tatum.io/v3/polygon/smartcontract
   try {
     const resp = await axios.post(url, data, {
       headers: {
@@ -30,9 +29,9 @@ export async function callSmartContractFunction( //would also call withdraw func
     return resp.data.IpfsHash;
   } catch (error) {
     console.log("error", (error as any).response);
-    throw Error(error)
+    throw Error(error);
   }
-};
+}
 
 // TODO: interface in param
 export async function postIPFS(
