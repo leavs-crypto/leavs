@@ -1,8 +1,9 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers, providers } from "ethers";
-import LoanABI from "../artifacts/contracts/Loan.sol/Loan.json";
+import MarketplaceABI from "../artifacts/contracts/Marketplace.sol/Marketplace.json";
+import { Marketplace } from "../artifacts/contracts/types";
 
-const MARKETPLACE_CONTRACT = "";
+const MARKETPLACE_CONTRACT = " 0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // put up item for sale
 // fetch all items for sale
@@ -17,15 +18,11 @@ export async function putUpItemForSale(
   const ethersProvider = new providers.Web3Provider(provider);
   const contract = new ethers.Contract(
     MARKETPLACE_CONTRACT,
-    ActionABI.abi,
-    provider
-  );
+    MarketplaceABI.abi,
+    ethersProvider
+  ) as Marketplace;
   try {
-    let marketItemId = await contract.createMarketItem(
-      contractAddress,
-      tokenId,
-      price
-    );
+    await contract.createMarketItem(contractAddress, tokenId, price);
   } catch (e) {
     console.error(e);
   }
@@ -39,11 +36,11 @@ export async function buyItem(
   const ethersProvider = new providers.Web3Provider(provider);
   const contract = new ethers.Contract(
     MARKETPLACE_CONTRACT,
-    ActionABI.abi,
-    provider
-  );
+    MarketplaceABI.abi,
+    ethersProvider
+  ) as Marketplace;
   try {
-    let marketItemId = await contract.createMarketSale(contractAddress, itemId);
+    await contract.createMarketSale(contractAddress, itemId);
   } catch (e) {
     console.error(e);
   }
