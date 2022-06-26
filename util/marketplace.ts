@@ -46,11 +46,7 @@ export async function buyItem(
   }
 }
 
-export async function getItems(
-  contractAddress: string,
-  itemId: number,
-  provider: WalletConnectProvider
-) {
+export async function getItems(provider: WalletConnectProvider) {
   const ethersProvider = new providers.Web3Provider(provider);
   const contract = new ethers.Contract(
     MARKETPLACE_CONTRACT,
