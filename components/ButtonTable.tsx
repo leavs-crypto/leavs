@@ -21,7 +21,7 @@ const ButtonTable = (props: object) => {
         <Button
             colorScheme='blue'
             mr={3}
-            width="100px"
+            width="70px"
             onClick={() => {
                 console.log(action);
                 switch (action) {

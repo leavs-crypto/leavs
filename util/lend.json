@@ -1,72 +1,122 @@
 [
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Buy"
+      "amount": "1000 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "15%",
+      "action": "Buy",
+      "KYC": {
+        "geographicLocation": "Berlin",
+        "AgeGroup": "35-40",
+        "creditScore": "650"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Invest"
+      "amount": "500 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "25%",
+      "action": "Invest",
+      "KYC": {
+        "geographicLocation": "London",
+        "AgeGroup": "50-55",
+        "creditScore": "620"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Buy"
+      "amount": "180 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "12%",
+      "action": "Buy",
+      "KYC": {
+        "geographicLocation": "New York",
+        "AgeGroup": "20-25",
+        "creditScore": "700"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Invest"
+      "amount": "300 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "18%",
+      "action": "Invest",
+      "KYC": {
+        "geographicLocation": "Mumbai",
+        "AgeGroup": "35-40",
+        "creditScore": "600"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Buy"
+      "amount": "1000 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "21%",
+      "action": "Buy",
+      "KYC": {
+        "geographicLocation": "Stockholm",
+        "AgeGroup": "40-45",
+        "creditScore": "610"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Invest"
+      "amount": "800 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "9%",
+      "action": "Invest",
+      "KYC": {
+        "geographicLocation": "San Fransisco",
+        "AgeGroup": "25-30",
+        "creditScore": "720"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Buy"
+      "amount": "400 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "15%",
+      "action": "Buy",
+      "KYC": {
+        "geographicLocation": "Bangalore",
+        "AgeGroup": "35-40",
+        "creditScore": "650"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Invest"
+      "amount": "600 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "22%",
+      "action": "Invest",
+      "KYC": {
+        "geographicLocation": "Mexico City",
+        "AgeGroup": "35-40",
+        "creditScore": "650"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Buy"
+      "amount": "700 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "19%",
+      "action": "Buy",
+      "KYC": {
+        "geographicLocation": "Hamburg",
+        "AgeGroup": "40-45",
+        "creditScore": "650"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Invest"
+      "amount": "800 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "7%",
+      "action": "Invest",
+      "KYC": {
+        "geographicLocation": "Berlin",
+        "AgeGroup": "35-40",
+        "creditScore": "750"
+      }
     }
-]
+  ]

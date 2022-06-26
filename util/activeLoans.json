@@ -1,23 +1,38 @@
 [
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Sell"
+      "amount": "150 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "DAI",
+      "APR": "9%",
+      "action": "Sell",
+      "KYC": {
+        "geographicLocation": "New York",
+        "AgeGroup": "35-40",
+        "creditScore": "750"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "On Sale"
+      "amount": "150 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "17%",
+      "action": "On Sale",
+      "KYC": {
+        "geographicLocation": "New York",
+        "AgeGroup": "40-45",
+        "creditScore": "620"
+      }
     },
     {
-        "amount": "150 MATIC", 
-        "oustanding": "130 days",
-        "dailyPayment": "1MATIC",
-        "APR": "5%",
-        "action": "Sell"
+      "amount": "150 DAI",
+      "oustanding": "130 days",
+      "dailyPayment": "1DAI",
+      "APR": "20%",
+      "action": "Sell",
+      "KYC": {
+        "geographicLocation": "San Fransico",
+        "AgeGroup": "40-45",
+        "creditScore": "620"
+      }
     }
-]
+  ]

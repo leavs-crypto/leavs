@@ -5,7 +5,9 @@ import { useEffect } from "react";
 const Home: NextPage = () => {
   return (
     <>
-      <Box textAlign="center">Put landing page picture here</Box>
+      <Box textAlign="center">
+        <Image width={1400} height={900} src={require('/assets/images/home.png')} alt="" />
+      </Box>
     </>
   );
 };

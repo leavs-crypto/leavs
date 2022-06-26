@@ -24,6 +24,9 @@ const TableComponent = (props: object) => {
           <Table variant='simple'>
             <Thead>
               <Tr>
+                <Th>Credit score</Th>
+                <Th>Geographic location</Th>
+                <Th>Age</Th>
                 <Th>Amount</Th>
                 <Th>Oustanding</Th>
                 <Th>Daily payment</Th>
@@ -34,12 +37,15 @@ const TableComponent = (props: object) => {
             <Tbody>
               {props.data.map((item) =>
                 <Tr key={item.amount}>
+                  <Td>{item.KYC.creditScore}</Td>
+                  <Td>{item.KYC.geographicLocation}</Td>
+                  <Td>{item.KYC.AgeGroup}</Td>
                   <Td>{item.amount}</Td>
                   <Td>{item.oustanding}</Td>
                   <Td>{item.dailyPayment}</Td>
                   <Td>{item.APR}</Td>
                   <Td>
-                    <ButtonTable action={item.action}/>
+                    <ButtonTable action={item.action} />
                   </Td>
                 </Tr>
               )}
