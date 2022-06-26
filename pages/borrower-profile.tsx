@@ -71,7 +71,6 @@ const BorrowerProfile: NextPage = () => {
     setWorldCoinID(nullfier_hash);
   }
   const provider = useContext(AuthContext);
-  console.log('provider: ', provider);
   const walletAddress = provider.accounts[0];
   return (
     <Drawer parent="borrower-profile">
@@ -103,7 +102,6 @@ const BorrowerProfile: NextPage = () => {
             onSubmit={async (values, actions) => {
               actions.setSubmitting(false);
               const data = formatHumanData(values);
-              let IpfsHash
               try {
                 IpfsHash = await postIPFS(data);
               } catch (error) {
@@ -112,8 +110,7 @@ const BorrowerProfile: NextPage = () => {
               }
               try {
                 await callSmartContractFunction(
-                  "addUser",
-                  addUser_ABI,
+                  provider,
                   [worldCoinID, walletAddress, IpfsHash]
                 );
                 setFormState('submitted');
