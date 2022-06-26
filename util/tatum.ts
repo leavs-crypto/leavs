@@ -18,7 +18,7 @@ export async function callSmartContractFunction( //would also call withdraw func
     amount: amount,
     fromPrivateKey: privateKey,
   };
-  const url = `https://api-us-west1.tatum.io/v3/polygon/smartcontract
+  const url = `https://api-us-west1.tatum.io/v3/polygon/smartcontract`;
   try {
     const resp = await axios.post(url, data, {
       headers: {
@@ -34,22 +34,20 @@ export async function callSmartContractFunction( //would also call withdraw func
 }
 
 // TODO: interface in param
-export async function postIPFS(
-  data: object
-) {
+export async function postIPFS(data: object) {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
   try {
     const resp = await axios.post(url, JSON.stringify(data), {
       headers: {
-        pinata_api_key: '6a09485934c38d2eaa22',
-        pinata_secret_api_key: 'c66ee0e1a50991957a320035d5037dfa0b59b03317c16659e152724234e1ea2b',
+        pinata_api_key: "6a09485934c38d2eaa22",
+        pinata_secret_api_key:
+          "c66ee0e1a50991957a320035d5037dfa0b59b03317c16659e152724234e1ea2b",
       },
     });
     return resp.data.IpfsHash;
   } catch (error) {
-    throw Error(error)
+    throw Error(error);
   }
-
 }
 
 // tatum not working for ipfs
