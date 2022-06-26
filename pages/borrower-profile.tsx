@@ -23,12 +23,15 @@ import { postIPFS } from "../util/tatum";
 // TODO: -> fix styles of this form with flex wrap
 const BorrowerProfile: NextPage = () => {
   const [worldCoinID, setWorldCoinID] = useState("");
+  function trySetWorldCoinID(nullfier_hash: string) {
+    setWorldCoinID(nullfier_hash);
+  }
   const provider = useContext(AuthContext);
   return (
     <Drawer parent="borrower-profile">
       <Box style={{ padding: 5 }}>
         {provider.connected && (
-          <DynamicWorldCoinButton onAuth={setWorldCoinID} />
+          <DynamicWorldCoinButton onAuth={trySetWorldCoinID} />
         )}
         <Formik
           initialValues={{
