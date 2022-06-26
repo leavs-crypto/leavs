@@ -45,3 +45,22 @@ export async function buyItem(
     console.error(e);
   }
 }
+
+export async function getItems(
+  contractAddress: string,
+  itemId: number,
+  provider: WalletConnectProvider
+) {
+  const ethersProvider = new providers.Web3Provider(provider);
+  const contract = new ethers.Contract(
+    MARKETPLACE_CONTRACT,
+    MarketplaceABI.abi,
+    ethersProvider
+  ) as Marketplace;
+  try {
+    const items = await contract.fetchAvailableMarketItems();
+    console.log("items", items);
+  } catch (e) {
+    console.error(e);
+  }
+}
