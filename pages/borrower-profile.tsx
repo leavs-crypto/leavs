@@ -58,7 +58,6 @@ const BorrowerProfile: NextPage = () => {
         There was an error processing your request
       </Alert>}
 
-
       {formState == 'notSubmitted' &&
         <Box style={{ padding: 5 }}>
           {provider.connected && (
