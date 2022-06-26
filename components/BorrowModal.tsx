@@ -22,6 +22,7 @@ import { useContext, useLayoutEffect } from "react";
 const BorrowModal = () => {
     // TODO: frh -> form logic with state
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const provider = useContext(AuthContext);
 
     return (
         <>
@@ -45,12 +46,15 @@ const BorrowModal = () => {
                         onSubmit={async (values, actions) => {
                             console.log('values: ', values);
                             actions.setSubmitting(false);
+                            
 
                             try {
-                                const provider = useContext(AuthContext);
-
                                 const loan = await createLoanContract(provider, 'This should be world coin id', values.loanAmount, values.loanTerm, values.APR);
+                                console.log('HIIIIII')
+                                console.log('Results:  ',loan)
                             } catch (error) {
+                                console.log('Error')
+
                                 throw Error(error);
                             }
                         }}
