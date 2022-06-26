@@ -18,6 +18,8 @@ const provider = new WalletConnectProvider({
   infuraId: "d62fb642f5ad46ec98639ad9d23de080",
   rpc: { 80001: "https://polygon-mumbai.infura.io/" },
 });
+
+
 export const WithWalletConnect = ({
   children,
 }: {

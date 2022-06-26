@@ -24,6 +24,7 @@ export async function callSmartContractFunction( //would also call withdraw func
   const url = `https://api-us-west1.tatum.io/v3/polygon/smartcontract`;
 }
 
+
 // TODO: interface in param
 export async function postIPFS(data: object) {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;

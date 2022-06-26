@@ -1,12 +1,19 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers, providers } from "ethers";
 import LoanABI from "../artifacts/contracts/Loan.sol/Loan.json";
-
+import {createFlow, updateFlow, getFlowRate} from "../util/superfluid";
+import {sellNFT} from "../util/opensea";
 const LEAVS_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+
+
+
 export async function createLoanContract(
   provider: WalletConnectProvider,
-  loanDetailsCID: string,
-  worldCoinCID: string
+  worldCoinCID: string,
+  loanAmount: number,
+  loanTerm: number,
+  APR:number
 ) {
   try {
     const ethersProvider = new providers.Web3Provider(provider);
@@ -15,10 +22,38 @@ export async function createLoanContract(
       LoanABI.bytecode,
       ethersProvider.getSigner()
     );
-    const contract = await factory.deploy(loanDetailsCID, worldCoinCID);
-  } catch (e) {
+    console.log('Deploying contract...')
+    const contract = await factory.deploy(worldCoinCID, loanAmount, loanTerm, APR,  {gasLimit:800000});
+    console.log(contract.address)
+    return contract.address
+} catch (e) {
     console.error(e);
   }
 }
 
 export async function addUser(provider: WalletConnectProvider);
+
+export async function requestLoan(
+    borrower: string,
+    provider: WalletConnectProvider,
+    worldCoinCID: string,
+    loanAmount: number,
+    loanTerm: number,
+    APR:number
+  ) 
+  {
+
+    let totalLoan = 1000; // TODO calculate real loan
+    const deployedAddress = createLoanContract(provider, worldCoinCID, loanAmount, loanTerm, APR)
+    // save the deployed address in the Leavs depled smart contract
+
+    // open up the Superfluid stream
+    let flowRate= totalLoan/loanTerm/30/24/60/60
+    await createFlow(borrower, String(flowRate), provider)
+    
+
+    // put up the NFT on OpenSea marketplace
+
+    sellNFT()
+  }
+  
