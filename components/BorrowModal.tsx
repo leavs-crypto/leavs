@@ -17,6 +17,7 @@ import { Field, Form, Formik } from "formik";
 import { createLoanContract } from "../util/loans";
 import { AuthContext } from "./WithWalletConnect";
 import { useContext, useLayoutEffect } from "react";
+import { Console } from "console";
 
 
 const BorrowModal = () => {
@@ -50,6 +51,7 @@ const BorrowModal = () => {
 
 
                             try {
+                                console.log('deploying loan contract')
                                 const loan = await createLoanContract(provider, 'This should be world coin id', values.loanAmount, values.loanTerm, values.APR);
                                 console.log('HIIIIII')
                                 console.log('Results:  ', loan)
