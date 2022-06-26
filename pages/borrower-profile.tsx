@@ -1,30 +1,52 @@
 import {
-    Box, Button, FormControl, FormLabel, FormInput, Input
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    FormInput,
+    Input,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import type { NextPage } from "next";
 import Drawer from "../components/Drawer";
 import { postIPFS } from "../util/tatum";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const formatHumanData = (data: object) => {
     const { age, location, creditScore, monthlyIncome, monthlyDebt } = data;
     return {
         KYC: {
-            age, 
+            age,
             location
         },
         creditScore,
-        monthlyIncome, 
+        monthlyIncome,
         monthlyDebt
     }
 }
 
 // TODO: -> fix styles of this form with flex wrap
 const BorrowerProfile: NextPage = () => {
+    const [formState, setFormState] = useState('notSubmitted');
+
     return (
         <Drawer parent="borrower-profile">
+            {formState == 'submitted' && <Alert status='success'>
+                <AlertIcon />
+                Data uploaded to IPFS. Fire on!
+            </Alert>}
+            {formState == 'error' && <Alert status='error'>
+                <AlertIcon />
+                There was an error processing your request
+            </Alert>}
 
-            <Formik
+
+            {formState == 'notSubmitted' && <Formik
                 initialValues={{
                     firstName: "",
                     lastName: "",
@@ -39,13 +61,15 @@ const BorrowerProfile: NextPage = () => {
                     const data = formatHumanData(values);
                     try {
                         const IpfsHash = await postIPFS(data);
+                        setFormState('submitted');
                     } catch (error) {
+                        setFormState('error');
                         throw Error(error);
                     }
                 }}
             >
                 {(props) => (
-                    <Form style={{textAlign:"center"}}>
+                    <Form style={{ textAlign: "center" }}>
                         <Field name="firstName">
                             {({ field, form }) => (
                                 <FormControl mt={4}>
@@ -142,13 +166,12 @@ const BorrowerProfile: NextPage = () => {
                             mr={3}
                             type="submit"
                             isLoading={props.isSubmitting}
-                        // disabled={loading}
                         >
                             Update my profile
                         </Button>
                     </Form>
                 )}
-            </Formik>
+            </Formik>}
         </Drawer >
 
     );
