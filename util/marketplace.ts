@@ -34,7 +34,7 @@ export async function buyItem(
     itemId: number
   ) {
     try {
-      let marketItemId = await contract.createMarketItem(contractAddress, itemId);
+      let marketItemId = await contract.createMarketSale(contractAddress, itemId);
     } catch (e) {
       console.error(e);
     }
