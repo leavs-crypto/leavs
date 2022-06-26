@@ -1,5 +1,5 @@
 import worldID from "@worldcoin/id";
-import { useContext, useLayoutEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import { AuthContext } from "./WithWalletConnect";
 const WorldCoinButton = ({
   onAuth,
@@ -7,7 +7,9 @@ const WorldCoinButton = ({
   onAuth: (nullifier_hash: string) => void;
 }) => {
   const provider = useContext(AuthContext);
-  useLayoutEffect(() => {
+  console.log("provider", provider.connected);
+
+  useEffect(() => {
     if (!worldID.isInitialized()) {
       if (!provider.accounts[0]) {
         throw ReferenceError("User has to have wallet connected");
@@ -18,9 +20,13 @@ const WorldCoinButton = ({
         signal: provider.accounts[0],
         signal_description: "Connect wallet",
       });
+      console.log("ffj2");
+      enable();
+    } else {
+      console.log("ffj");
       enable();
     }
-  }, []);
+  });
   async function enable() {
     const result = await worldID.enable();
     console.log("result", result);

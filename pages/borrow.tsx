@@ -7,13 +7,6 @@ import Table from "../components/Table";
 import { useContext } from "react";
 import { AuthContext } from "../components/WithWalletConnect";
 
-const DynamicWorldCoinButton = dynamic(
-  () => import("../components/WorldCoinButton"),
-  {
-    ssr: false,
-  }
-);
-
 const Borrow: NextPage = () => {
   const provider = useContext(AuthContext);
   return (
