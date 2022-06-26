@@ -21,8 +21,10 @@ const DynamicWorldCoinButton = dynamic(
 import { postIPFS } from "../util/tatum";
 
 const formatHumanData = (data: object) => {
-  const { age, location, creditScore, monthlyIncome, monthlyDebt } = data;
+  const { worldCoinID, walletAddress, age, location, creditScore, monthlyIncome, monthlyDebt } = data;
   return {
+    worldcoin_nullifier: worldCoinID,
+    walletAddress,
     KYC: {
       age,
       location,
@@ -40,6 +42,7 @@ const BorrowerProfile: NextPage = () => {
     setWorldCoinID(nullfier_hash);
   }
   const provider = useContext(AuthContext);
+  const walletAddress = provider.accounts[0];
   return (
     <Drawer parent="borrower-profile">
       <Box style={{ padding: 5 }}>
@@ -58,7 +61,7 @@ const BorrowerProfile: NextPage = () => {
           }}
           onSubmit={async (values, actions) => {
             actions.setSubmitting(false);
-            const data = formatHumanData(values);
+            const data = formatHumanData({...values, worldCoinID, walletAddress});
             try {
               const IpfsHash = await postIPFS(data);
             } catch (error) {
