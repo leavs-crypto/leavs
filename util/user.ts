@@ -14,14 +14,9 @@ export async function addUser(
     LeavsABI.abi,
     ethersProvider.getSigner()
   ) as Leavs;
-  console.log("hh", ethersProvider.getSigner());
-  console.log("hh", contract.address);
-  console.log("hh", contract.addUser);
   try {
-    await contract.addUser(wid, provider.accounts[0], cid);
-    console.log("hu");
+    await contract.addUser(wid, provider.accounts[0], cid, {gasLimit: 800000000});
   } catch (e) {
     console.error(e);
   }
-  console.log("haau");
 }
