@@ -8,10 +8,13 @@ import {
   TableCaption,
   TableContainer,
   Grid,
-  GridItem
+  GridItem,
+  Button
 } from '@chakra-ui/react';
+import { useState, useContext, useLayoutEffect } from "react";
+import ButtonTable from './ButtonTable';
 
-const TableComponent = () => {
+const TableComponent = (props: object) => {
 
   return (
     <Grid templateColumns='repeat(12, 1fr)' gap={4} h="1vh" >
@@ -21,23 +24,25 @@ const TableComponent = () => {
           <Table variant='simple'>
             <Thead>
               <Tr>
-                <Th>Status</Th>
                 <Th>Amount</Th>
                 <Th>Oustanding</Th>
-                <Th>Monthly payment</Th>
+                <Th>Daily payment</Th>
                 <Th>APR</Th>
                 <Th>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>Granted</Td>
-                <Td>100 ETH</Td>
-                <Td>Do not know what this is</Td>
-                <Td>1 ETH</Td>
-                <Td>20%</Td>
-                <Td>Cancel</Td>
-              </Tr>
+              {props.data.map((item) =>
+                <Tr key={item.amount}>
+                  <Td>{item.amount}</Td>
+                  <Td>{item.oustanding}</Td>
+                  <Td>{item.dailyPayment}</Td>
+                  <Td>{item.APR}</Td>
+                  <Td>
+                    <ButtonTable action={item.action}/>
+                  </Td>
+                </Tr>
+              )}
             </Tbody>
           </Table>
         </TableContainer>
