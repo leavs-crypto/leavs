@@ -16,6 +16,10 @@ import { AuthContext } from "./WithWalletConnect";
 const Header = () => {
   const router = useRouter();
   const { provider, setProvider } = useContext(AuthContext);
+  provider.onConnect &&
+    provider.onConnect(() => {
+      setProvider(provider);
+    });
   return (
     <Grid
       templateColumns="repeat(12, 1fr)"
@@ -55,7 +59,7 @@ const Header = () => {
                 colorScheme="green"
                 variant="solid"
                 onClick={() => {
-                  provider.enable().then(() => setProvider(provider));
+                  provider.enable().then(() => router.push(router.route));
                 }}
               >
                 Connect Wallet
@@ -67,7 +71,7 @@ const Header = () => {
                 colorScheme="green"
                 variant="solid"
                 onClick={() => {
-                  provider.disconnect().then(() => setProvider(provider));
+                  provider.disconnect().then(() => router.push(router.route));
                 }}
               >
                 {truncateEthAddress(provider.accounts[0])}
