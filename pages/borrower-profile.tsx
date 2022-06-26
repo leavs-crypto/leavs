@@ -22,7 +22,31 @@ const DynamicWorldCoinButton = dynamic(
     ssr: false,
   }
 );
-import { postIPFS } from "../util/tatum";
+import { postIPFS, callSmartContractFunction } from "../util/tatum";
+
+const addUser_ABI = {
+  "inputs": [
+    {
+      "internalType": "string",
+      "name": "_wid",
+      "type": "string"
+    },
+    {
+      "internalType": "address",
+      "name": "_walletAddress",
+      "type": "address"
+    },
+    {
+      "internalType": "string",
+      "name": "_cid",
+      "type": "string"
+    }
+  ],
+  "name": "addUser",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}
 
 const formatHumanData = (data: object) => {
   const { worldCoinID, walletAddress, age, location, creditScore, monthlyIncome, monthlyDebt } = data;
@@ -47,6 +71,7 @@ const BorrowerProfile: NextPage = () => {
     setWorldCoinID(nullfier_hash);
   }
   const provider = useContext(AuthContext);
+  console.log('provider: ', provider);
   const walletAddress = provider.accounts[0];
   return (
     <Drawer parent="borrower-profile">
@@ -78,8 +103,19 @@ const BorrowerProfile: NextPage = () => {
             onSubmit={async (values, actions) => {
               actions.setSubmitting(false);
               const data = formatHumanData(values);
+              let IpfsHash
               try {
-                const IpfsHash = await postIPFS(data);
+                IpfsHash = await postIPFS(data);
+              } catch (error) {
+                setFormState('error');
+                throw Error(error);
+              }
+              try {
+                await callSmartContractFunction(
+                  "addUser",
+                  addUser_ABI,
+                  [worldCoinID, walletAddress, IpfsHash]
+                );
                 setFormState('submitted');
               } catch (error) {
                 setFormState('error');
@@ -104,43 +140,6 @@ const BorrowerProfile: NextPage = () => {
                     )}
                   </Field>
 
-                  <Field name="lastName" style={{ flex: 1 }}>
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Last Name</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder='Last Name'
-                          disabled={worldCoinID == ""}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="age">
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Age</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder='Age'
-                          type='number'
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="location">
-                    {({ field, form }) => (
-                      <FormControl mt={4}>
-                        <FormLabel>Location</FormLabel>
-                        <Input
-                          {...field}
-                          placeholder='Location'
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
                   <Field
                     name="lastName"
                     style={{ flex: 1 }}
@@ -241,8 +240,8 @@ const BorrowerProfile: NextPage = () => {
               )}
           </Formik >
         </Box >}
-      </Drawer >
+    </Drawer >
   );
 };
 
-      export default BorrowerProfile;
+export default BorrowerProfile;
