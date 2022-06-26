@@ -21,17 +21,17 @@ const DynamicWorldCoinButton = dynamic(
 import { postIPFS } from "../util/tatum";
 
 const formatHumanData = (data: object) => {
-    const { age, location, creditScore, monthlyIncome, monthlyDebt } = data;
-    return {
-        KYC: {
-            age, 
-            location
-        },
-        creditScore,
-        monthlyIncome, 
-        monthlyDebt
-    }
-}
+  const { age, location, creditScore, monthlyIncome, monthlyDebt } = data;
+  return {
+    KYC: {
+      age,
+      location,
+    },
+    creditScore,
+    monthlyIncome,
+    monthlyDebt,
+  };
+};
 
 // TODO: -> fix styles of this form with flex wrap
 const BorrowerProfile: NextPage = () => {
@@ -57,15 +57,15 @@ const BorrowerProfile: NextPage = () => {
             monthlyDebt: null,
           }}
           onSubmit={async (values, actions) => {
-                    actions.setSubmitting(false);
-                    const data = formatHumanData(values);
-                    try {
-                        const IpfsHash = await postIPFS(data);
-                    } catch (error) {
-                        throw Error(error);
-                    }
-                }}
-            >
+            actions.setSubmitting(false);
+            const data = formatHumanData(values);
+            try {
+              const IpfsHash = await postIPFS(data);
+            } catch (error) {
+              throw Error(error);
+            }
+          }}
+        >
           {(props) => (
             <Form style={{ flexDirection: "row", width: 500 }}>
               <Field

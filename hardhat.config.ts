@@ -10,16 +10,18 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: "0.8.13",
+  networks: {
+    mumbai: {
+      url: "https://polygon-mumbai.infura.io/v3/d62fb642f5ad46ec98639ad9d23de080",
+      accounts:
+        process.env.MUMBAI_PRIVATE_KEY !== undefined
+          ? [process.env.MUMBAI_PRIVATE_KEY]
+          : [],
+    },
+  },
   typechain: {
     outDir: "artifacts/contracts/types",
     target: "ethers-v5",
-  },
-  networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
   },
 };
 
