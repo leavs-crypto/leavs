@@ -6,6 +6,19 @@ import type { NextPage } from "next";
 import Drawer from "../components/Drawer";
 import { postIPFS } from "../util/tatum";
 
+const formatHumanData = (data: object) => {
+    const { age, location, creditScore, monthlyIncome, monthlyDebt } = data;
+    return {
+        KYC: {
+            age, 
+            location
+        },
+        creditScore,
+        monthlyIncome, 
+        monthlyDebt
+    }
+}
+
 // TODO: -> fix styles of this form with flex wrap
 const BorrowerProfile: NextPage = () => {
     return (
@@ -13,29 +26,27 @@ const BorrowerProfile: NextPage = () => {
 
             <Formik
                 initialValues={{
-                    firstName: undefined,
-                    lastName: null,
+                    firstName: "",
+                    lastName: "",
                     age: null,
-                    location: null,
+                    location: "",
                     creditScore: null,
                     monthlyIncome: null,
                     monthlyDebt: null
                 }}
                 onSubmit={async (values, actions) => {
                     actions.setSubmitting(false);
+                    const data = formatHumanData(values);
                     try {
-                        const ipfs = await postIPFS(values);
-                        console.log('ipfs: ', ipfs);
-
+                        const IpfsHash = await postIPFS(data);
                     } catch (error) {
-                        console.log('error: ', error);
-                        
+                        throw Error(error);
                     }
                 }}
             >
                 {(props) => (
-                    <Form>
-                        <Field name="firstName" style={{ flex: 1 }}>
+                    <Form style={{textAlign:"center"}}>
+                        <Field name="firstName">
                             {({ field, form }) => (
                                 <FormControl mt={4}>
                                     <FormLabel>First Name</FormLabel>
