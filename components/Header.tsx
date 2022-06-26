@@ -59,7 +59,8 @@ const Header = () => {
                 colorScheme="green"
                 variant="solid"
                 onClick={() => {
-                  provider.enable().then(() => router.push(router.route));
+                  provider &&
+                    provider.enable().then(() => router.push(router.route));
                 }}
               >
                 Connect Wallet

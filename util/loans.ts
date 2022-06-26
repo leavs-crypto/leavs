@@ -2,7 +2,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers, providers } from "ethers";
 import LoanABI from "../artifacts/contracts/Loan.sol/Loan.json";
 import { createFlow, updateFlow, getFlowRate } from "../util/superfluid";
-const LEAVS_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const LEAVS_CONTRACT_ADDRESS = "0xE8450976E826367d2875401C8132a47d6Bece27e";
 
 export async function createLoanContract(
   provider: WalletConnectProvider,

@@ -57,6 +57,7 @@ const BorrowerProfile: NextPage = () => {
     setWorldCoinID(nullfier_hash);
   }
   const provider = useContext(AuthContext);
+  console.log("mmh", provider.connected);
   const walletAddress = provider.accounts[0];
   return (
     <Drawer parent="borrower-profile">

@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
-
 contract Leavs {
     mapping(address=>string) public wids;
     mapping(address=>string) public cids;

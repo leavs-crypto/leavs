@@ -15,10 +15,10 @@ export const AuthContext = createContext(
   // }
 );
 const provider = new WalletConnectProvider({
-  infuraId: "d62fb642f5ad46ec98639ad9d23de080",
-  rpc: { 80001: "https://polygon-mumbai.infura.io/" },
+  rpc: {
+    80001: "https://matic-mumbai.chainstacklabs.com/",
+  },
 });
-
 
 export const WithWalletConnect = ({
   children,

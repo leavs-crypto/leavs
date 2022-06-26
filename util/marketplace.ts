@@ -3,7 +3,7 @@ import { ethers, providers } from "ethers";
 import MarketplaceABI from "../artifacts/contracts/Marketplace.sol/Marketplace.json";
 import { Marketplace } from "../artifacts/contracts/types";
 
-const MARKETPLACE_CONTRACT = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const MARKETPLACE_CONTRACT = "0x2d7dBE8269562C5479a0b8f5d680a0378B5BB7a1";
 
 // put up item for sale
 // fetch all items for sale
