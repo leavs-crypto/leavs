@@ -89,6 +89,7 @@ const BorrowerProfile: NextPage = () => {
               monthlyDebt: null,
             }}
             onSubmit={async (values, actions) => {
+              console.log("Hi");
               actions.setSubmitting(false);
               const data = formatHumanData(values);
               let IpfsHash;
@@ -98,6 +99,7 @@ const BorrowerProfile: NextPage = () => {
                 setFormState("error");
                 throw Error(error);
               }
+              console.log("Hddi");
               try {
                 await addUser(worldCoinID, IpfsHash, provider);
                 setFormState("submitted");
@@ -105,6 +107,7 @@ const BorrowerProfile: NextPage = () => {
                 setFormState("error");
                 throw Error(error);
               }
+              console.log("Hddddi");
             }}
           >
             {(props) => (

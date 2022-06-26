@@ -8,7 +8,7 @@ dotenv.config();
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "pokt",
+  defaultNetwork: "mumbai",
   solidity: "0.8.13",
   typechain: {
     outDir: "artifacts/contracts/types",
