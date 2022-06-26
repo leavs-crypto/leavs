@@ -15,7 +15,7 @@ contract Marketplace is ReentrancyGuard {
     address payable private owner;
 
     // Challenge: make this price dynamic according to the current currency price
-    uint256 private listingFee = 0.045 ether;
+    uint256 private listingFee = 0 ether;
 
     mapping(uint256 => MarketItem) private marketItemIdToMarketItem;
 
@@ -47,9 +47,9 @@ contract Marketplace is ReentrancyGuard {
         owner = payable(msg.sender);
     }
 
-    function getListingFee() public view returns (uint256) {
-        return listingFee;
-    }
+    // function getListingFee() public view returns (uint256) {
+    //     return listingFee;
+    // }
 
     /**
      * @dev Creates a market item listing, requiring a listing fee and transfering the NFT token from
@@ -92,37 +92,37 @@ contract Marketplace is ReentrancyGuard {
     /**
      * @dev Cancel a market item
      */
-    function cancelMarketItem(address nftContractAddress, uint256 marketItemId) public payable nonReentrant {
-        uint256 tokenId = marketItemIdToMarketItem[marketItemId].tokenId;
-        require(tokenId > 0, "Market item has to exist");
+    // function cancelMarketItem(address nftContractAddress, uint256 marketItemId) public payable nonReentrant {
+    //     uint256 tokenId = marketItemIdToMarketItem[marketItemId].tokenId;
+    //     require(tokenId > 0, "Market item has to exist");
 
-        require(marketItemIdToMarketItem[marketItemId].seller == msg.sender, "You are not the seller");
+    //     require(marketItemIdToMarketItem[marketItemId].seller == msg.sender, "You are not the seller");
 
-        IERC721(nftContractAddress).transferFrom(address(this), msg.sender, tokenId);
+    //     IERC721(nftContractAddress).transferFrom(address(this), msg.sender, tokenId);
 
-        marketItemIdToMarketItem[marketItemId].owner = payable(msg.sender);
-        marketItemIdToMarketItem[marketItemId].canceled = true;
+    //     marketItemIdToMarketItem[marketItemId].owner = payable(msg.sender);
+    //     marketItemIdToMarketItem[marketItemId].canceled = true;
 
-        _tokensCanceled.increment();
-    }
+    //     _tokensCanceled.increment();
+    // }
 
     /**
      * @dev Get Latest Market Item by the token id
      */
-    function getLatestMarketItemByTokenId(uint256 tokenId) public view returns (MarketItem memory, bool) {
-        uint256 itemsCount = _marketItemIds.current();
+    // function getLatestMarketItemByTokenId(uint256 tokenId) public view returns (MarketItem memory, bool) {
+    //     uint256 itemsCount = _marketItemIds.current();
 
-        for (uint256 i = itemsCount; i > 0; i--) {
-            MarketItem memory item = marketItemIdToMarketItem[i];
-            if (item.tokenId != tokenId) continue;
-            return (item, true);
-        }
+    //     for (uint256 i = itemsCount; i > 0; i--) {
+    //         MarketItem memory item = marketItemIdToMarketItem[i];
+    //         if (item.tokenId != tokenId) continue;
+    //         return (item, true);
+    //     }
 
-        // What is the best practice for returning a "null" value in solidity?
-        // Reverting does't seem to be the best approach as it would throw an error on frontend
-        MarketItem memory emptyMarketItem;
-        return (emptyMarketItem, false);
-    }
+    //     // What is the best practice for returning a "null" value in solidity?
+    //     // Reverting does't seem to be the best approach as it would throw an error on frontend
+    //     MarketItem memory emptyMarketItem;
+    //     return (emptyMarketItem, false);
+    // }
 
     /**
      * @dev Creates a market sale by transfering msg.sender money to the seller and NFT token from the
@@ -137,6 +137,7 @@ contract Marketplace is ReentrancyGuard {
         marketItemIdToMarketItem[marketItemId].sold = true;
 
         marketItemIdToMarketItem[marketItemId].seller.transfer(msg.value);
+        
         IERC721(nftContractAddress).transferFrom(nftContractAddress, msg.sender, tokenId);
 
         _tokensSold.increment();
