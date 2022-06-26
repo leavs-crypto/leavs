@@ -1,10 +1,15 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers, providers } from "ethers";
 import LoanABI from "../artifacts/contracts/Loan.sol/Loan.json";
+
+
+
 export async function createLoanContract(
   provider: WalletConnectProvider,
-  loanDetailsCID: string,
-  worldCoinCID: string
+  worldCoinCID: string,
+  loanAmount: number,
+  loanTerm: number,
+  APR:number
 ) {
   try {
     const ethersProvider = new providers.Web3Provider(provider);
@@ -13,7 +18,7 @@ export async function createLoanContract(
       LoanABI.bytecode,
       ethersProvider.getSigner()
     );
-    const contract = await factory.deploy(loanDetailsCID, worldCoinCID);
+    const contract = await factory.deploy(worldCoinCID, loanAmount, loanTerm, APR);
   } catch (e) {
     console.error(e);
   }
