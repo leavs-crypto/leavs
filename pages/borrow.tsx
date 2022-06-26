@@ -79,7 +79,7 @@ const BorrowerProfile: NextPage = () => {
         Please connect your wallet to borrow a loan
       </Container>
       }
-      {IpfsHash && worldCoinID && <BorrowModal />}
+      {IpfsHash && worldCoinID && <BorrowModal worldCoinID={worldCoinID}/>}
       {formState == "submitted" && (
         <Alert status="success">
           <AlertIcon />

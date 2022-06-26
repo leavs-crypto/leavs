@@ -20,7 +20,7 @@ import { useContext, useLayoutEffect } from "react";
 import { Console } from "console";
 
 
-const BorrowModal = () => {
+const BorrowModal = ({worldCoinID}) => {
     // TODO: frh -> form logic with state
     const { isOpen, onOpen, onClose } = useDisclosure();
     const provider = useContext(AuthContext);
@@ -51,12 +51,11 @@ const BorrowModal = () => {
 
 
                             try {
-                                console.log('deploying loan contract')
-                                const loan = await createLoanContract(provider, 'This should be world coin id', values.loanAmount, values.loanTerm, values.APR);
                                 console.log('HIIIIII')
+                                const loan = await createLoanContract(provider, worldCoinID, values.loanAmount, values.loanTerm, values.APR);
                                 console.log('Results:  ', loan)
                             } catch (error) {
-                                console.log('Error')
+                                console.log('Error', error)
 
                                 throw Error(error);
                             }
