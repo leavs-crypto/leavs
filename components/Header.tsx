@@ -47,7 +47,7 @@ const Header = () => {
                 colorScheme="green"
                 variant="solid"
                 onClick={() => {
-                  router.push("app");
+                  router.push("/borrow");
                 }}
               >
                 Enter App

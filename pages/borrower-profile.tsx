@@ -23,8 +23,6 @@ const DynamicWorldCoinButton = dynamic(
   }
 );
 import { postIPFS } from "../util/tatum";
-import { toast } from "react-toastify";
-import { useState } from "react";
 
 const formatHumanData = (data: object) => {
   const { age, location, creditScore, monthlyIncome, monthlyDebt } = data;

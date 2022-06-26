@@ -27,6 +27,7 @@
     "ethers": "5.6.4",
     "formik": "2.2.9",
     "framer-motion": "6.3.15",
+    "fs": "^0.0.1-security",
     "hardhat": "2.9.3",
     "next": "12.1.5",
     "opensea-js": "^4.0.3",

@@ -1,11 +1,8 @@
 import { useContext } from "react";
 import divide from "divide-bigint";
-
-import { OpenSeaSDK, Network } from 'opensea-js'
-
-
-
+import { OpenSeaSDK, Network } from 'opensea-js';
 import { AuthContext } from "../components/WithWalletConnect";
+
 const provider = useContext(AuthContext);
 
 const openseaSDK = new OpenSeaSDK(provider, {
