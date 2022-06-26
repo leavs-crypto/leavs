@@ -19,7 +19,7 @@ import { AuthContext } from "./WithWalletConnect";
 import { useContext, useLayoutEffect } from "react";
 
 
-const BorrowModal = () => {
+const BorrowModal = ({worldCoinID}) => {
     // TODO: frh -> form logic with state
     const { isOpen, onOpen, onClose } = useDisclosure();
     const provider = useContext(AuthContext);
@@ -50,11 +50,11 @@ const BorrowModal = () => {
 
 
                             try {
-                                const loan = await createLoanContract(provider, 'This should be world coin id', values.loanAmount, values.loanTerm, values.APR);
                                 console.log('HIIIIII')
+                                const loan = await createLoanContract(provider, worldCoinID, values.loanAmount, values.loanTerm, values.APR);
                                 console.log('Results:  ', loan)
                             } catch (error) {
-                                console.log('Error')
+                                console.log('Error', error)
 
                                 throw Error(error);
                             }
