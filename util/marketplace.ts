@@ -22,11 +22,20 @@ export async function putUpItemForSale(
   price: number
 ) {
   try {
-    await contract.createMarketItem(id);
-
-
-    const contract = await factory.deploy(loanDetailsCID, worldCoinCID);
+    let marketItemId = await contract.createMarketItem(contractAddress, tokenId, price);
   } catch (e) {
     console.error(e);
   }
 }
+
+
+export async function buyItem(
+    contractAddress: string,
+    itemId: number
+  ) {
+    try {
+      let marketItemId = await contract.createMarketItem(contractAddress, itemId);
+    } catch (e) {
+      console.error(e);
+    }
+  }

@@ -137,11 +137,11 @@ contract Marketplace is ReentrancyGuard {
         marketItemIdToMarketItem[marketItemId].sold = true;
 
         marketItemIdToMarketItem[marketItemId].seller.transfer(msg.value);
-        IERC721(nftContractAddress).transferFrom(address(this), msg.sender, tokenId);
+        IERC721(nftContractAddress).transferFrom(nftContractAddress, msg.sender, tokenId);
 
         _tokensSold.increment();
 
-        payable(owner).transfer(listingFee);
+        //payable(owner).transfer(listingFee);
     }
 
     /**
